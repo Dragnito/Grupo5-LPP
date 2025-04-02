@@ -100,31 +100,9 @@ void CargaRegistros(const char *filename, int iOrders) {
     fclose(file);
 }
 
-//
-// Muestra los datos cargados
-//
-void MuestraDatos() {
-    printf("Reg. 0: cabecera: %s\n", sCabecera);
-    for (int iPosRegistro = 0; iPosRegistro < iOrders; iPosRegistro++) {
-        printf("Reg. %i: %d | %d | %s | %d | %s | %s | %.2f | %.2f | %s | %s | %s | %s\n", 
-            iPosRegistro + 1,
-            aOrders[iPosRegistro].pizza_id, 
-            aOrders[iPosRegistro].order_id, 
-            aOrders[iPosRegistro].pizza_name_id, 
-            aOrders[iPosRegistro].quantity,    
-            aOrders[iPosRegistro].order_date,
-            aOrders[iPosRegistro].order_time,
-            aOrders[iPosRegistro].unit_price, 
-            aOrders[iPosRegistro].total_price,
-            aOrders[iPosRegistro].pizza_size,
-            aOrders[iPosRegistro].pizza_category,
-            aOrders[iPosRegistro].pizza_ingredients,
-            aOrders[iPosRegistro].pizza_name);
-    }
-}
 // Función para liberar memoria de las órdenes
-void free_orders(Order *orders, int size) {
-    // Liberar las cadenas dentro de cada order
-    free(orders);
-
+void free_orders(Order *orders) { // Reintroduced 'size' parameter to match the header
+    if (orders) {
+        free(orders);
+    }
 }

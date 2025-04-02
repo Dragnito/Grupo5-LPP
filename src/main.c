@@ -27,7 +27,6 @@ int main(int argc, char *argv[]) {
     printf("Se cargaron %d ordenes.\n", iOrders);
     
     // Selección de categorías para demostrar datos
-    char aux[4];
     char categorias[4];
     char *mas_vendida = NULL;
     char *menos_vendida = NULL;
@@ -83,13 +82,13 @@ int main(int argc, char *argv[]) {
             categoria_pizzas();
         }
         else if (strcmp(categorias, "exit") == 0){ // Exit del código sin tener que pasar por el "safe net"
-            printf("Proceso finalizado exitosamente.\n")
+            printf("Proceso finalizado exitosamente.\n");
             break;
         }
         else { // "Safe net" en caso de que se registre una métrica errónea y/o mal redactada
             char respuesta[2];
             printf("Se pidio una metrica que no existe, Desea continuar?: (S/N)\n ");
-            scanf(" %s",&respuesta);
+            scanf(" %1s", respuesta);
             if (strcmp(respuesta, "N") == 0 || strcmp(respuesta, "n") == 0) {
                 break;
             }
@@ -101,9 +100,9 @@ int main(int argc, char *argv[]) {
 
     // Liberar memorias asignadas
     free(sCabecera);
-    free_orders(aOrders, iOrders); // Liberar la memoria de las ordenes
+    free_orders(aOrders); // Removed the second argument 'iOrders'
     if (mas_vendida) free(mas_vendida);
     if (menos_vendida) free(menos_vendida);
 
     return 0;
-    }
+}

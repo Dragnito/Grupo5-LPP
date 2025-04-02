@@ -26,6 +26,6 @@ extern char *sCabecera;
 int CuentaRegistros(const char *filename);
 void CargaRegistros(const char *filename, int iOrders);
 void MuestraDatos(void);
-void free_orders(Order *orders, int size);
+void free_orders(Order *orders);
 
 #endif // READER_CSV_H

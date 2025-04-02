@@ -2,10 +2,23 @@
 #include <stdlib.h>
 #include <string.h>
 #include <float.h>
+#include <limits.h> // Added to define INT_MAX
 #include "../include/metrics.h"
 #include "../include/csv_reader.h"
 
 #define MAX_PIZZAS 50
+
+// Define strdup explicitly if not available
+#ifndef strdup
+char* strdup(const char* str) {
+    size_t len = strlen(str) + 1;
+    char* copy = malloc(len);
+    if (copy) {
+        memcpy(copy, str, len);
+    }
+    return copy;
+}
+#endif
 
 //Evitar Errores (Temporal para poder correr el codigo)
 
@@ -92,6 +105,9 @@ char* pizza_menos_vendida(int size, Order *orders) {
 
 // Función para encontrar el día con más ventas en términos de dinero
 char* dia_mas_dinero(int size, Order *orders, float *total_ventas) {
+    (void)size; // Mark unused parameter
+    (void)orders; // Mark unused parameter
+
     float max_sales = 0.0f;
     char max_day[20] = {0};
 
@@ -136,6 +152,9 @@ char* dia_mas_dinero(int size, Order *orders, float *total_ventas) {
 
 // Función para encontrar el día con menos ventas en términos de dinero
 char* dia_menos_dinero(int size, Order *orders, float *total_ventas) {
+    (void)size; // Mark unused parameter
+    (void)orders; // Mark unused parameter
+
     float min_sales = FLT_MAX;
     char min_day[20] = {0};
 
