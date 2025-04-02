@@ -83,6 +83,7 @@ int main(int argc, char *argv[]) {
             categoria_pizzas();
         }
         else if (strcmp(categorias, "exit") == 0){ // Exit del código sin tener que pasar por el "safe net"
+            printf("Proceso finalizado exitosamente.\n")
             break;
         }
         else { // "Safe net" en caso de que se registre una métrica errónea y/o mal redactada
