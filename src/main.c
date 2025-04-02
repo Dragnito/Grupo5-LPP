@@ -55,7 +55,7 @@ int main(int argc, char *argv[]) {
             printf("El dia con menos ventas fue: %s con un total de $%.2f\n", fecha_menos, ventas_menos);
             free(fecha_menos); // Liberar la memoria devuelta por strdup
         }
-        if (strcmp(categorias, "dmsp") == 0) { // Día donde se vendieron más pizzas
+        else if (strcmp(categorias, "dmsp") == 0) { // Día donde se vendieron más pizzas
             int total_pizzas_mas;
             char* fecha_mas = dia_mas_pizzas_vendidas(iOrders, aOrders, &total_pizzas_mas);
             printf("El día con más pizzas vendidas fue: %s con %d pizzas vendidas.\n", fecha_mas, total_pizzas_mas);
