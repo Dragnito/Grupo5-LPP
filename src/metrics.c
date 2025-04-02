@@ -25,11 +25,11 @@ typedef struct {
 } PizzaCount;
 
 
-
+// Funcion para las pizzas mas vendidas
 char* pizza_mas_vendida(int size, Order *orders) {
     PizzaCount pizzas[MAX_PIZZAS] = {0}; 
     int pizza_count = 0;
-
+//ciclo para contar cuantas veces fue pedida la pizza
     for (int i = 0; i < size; i++) {
         int found = 0;
         for (int j = 0; j < pizza_count; j++) {
@@ -39,7 +39,7 @@ char* pizza_mas_vendida(int size, Order *orders) {
                 break;
             }
         }
-        if (!found && pizza_count < MAX_PIZZAS) {
+        if (!found && pizza_count < MAX_PIZZAS) { //
             strcpy(pizzas[pizza_count].pizza_name, orders[i].pizza_name);
             pizzas[pizza_count].total_sold = orders[i].quantity;
             pizza_count++;
@@ -57,11 +57,11 @@ char* pizza_mas_vendida(int size, Order *orders) {
 }
 
 
-
+//Funcion para la contar la pizza menos vendida
 char* pizza_menos_vendida(int size, Order *orders) {
     PizzaCount pizzas[MAX_PIZZAS] = {0}; 
     int pizza_count = 0;
-
+//ciclo para contar la pizza menos solicitada
     for (int i = 0; i < size; i++) {
         int found = 0;
         for (int j = 0; j < pizza_count; j++) {
@@ -186,7 +186,7 @@ char* dia_mas_pizzas_vendidas(int size, Order *orders, int *total_pizzas) {
     int pizzas_by_day[MAX_PIZZAS] = {0};
     char dates[MAX_PIZZAS][20];
     int date_count = 0;
-
+//Ciclo que recorre las fechas del archivo
     for (int i = 0; i < size; i++) {
         int found = 0;
         for (int j = 0; j < date_count; j++) {
