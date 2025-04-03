@@ -21,12 +21,6 @@ char* strdup(const char* str) {
 }
 #endif
 
-//Evitar Errores (Temporal para poder correr el codigo)
-
-void categoria_pizzas() {
-    printf("Función categoria_pizzas aún no implementada.\n");
-}
-
 
 
 typedef struct {
@@ -271,22 +265,26 @@ char* dia_menos_pizzas_vendidas(int size, Order *orders, int *total_pizzas) {
 
 
 //Funcion que determina el promedio de pizzas por orden
-float promedio_pizzas_orden(int size, Order *orders) {
+char* promedio_pizzas_orden(int size, Order *orders) {
     int total_pizzas = 0;
-
+    int contador = 0;
     // Sumar todas las cantidades de pizzas
     for (int i = 0; i < size; i++) {
         total_pizzas += orders[i].quantity;
+        contador = contador + 1;
     }
 
-    // Calcular el promedio
-    return (float)total_pizzas / size;
+    // Calcular el promedio y transformarlo a char
+    float resultado = (float)total_pizzas/contador;
+    char promediopizzasorden[10];
+    sprintf(promediopizzasorden, "%.2f", resultado);
+    return strdup(promediopizzasorden);
 }
 
 
 
 // Función para calcular el promedio de pizzas vendidas por día
-float promedio_pizzas_dia(int size, Order *orders) {
+char* promedio_pizzas_dia(int size, Order *orders) {
     int total_pizzas = 0;
     int total_dias = 0;
 
@@ -323,7 +321,10 @@ float promedio_pizzas_dia(int size, Order *orders) {
     total_dias = date_count; // La cantidad de días únicos
 
     // Retornar el promedio de pizzas vendidas por día
-    return (float)total_pizzas / total_dias;
+    char PromedioPizzasDia[10];
+    float resultado = (float) total_pizzas/total_dias;
+    sprintf(PromedioPizzasDia, "%.2f", resultado);
+    return strdup(PromedioPizzasDia);
 }
 
 
@@ -396,4 +397,61 @@ char* ingrediente_mas_vendido(int size, Order *orders) {
     }
 
     return result;
+}
+
+
+
+// Función para mostrar todas las categorías de pizzas y cuántas veces fueron vendidas, considerando la cantidad
+char* categoria_pizzas(int size, Order *orders) {
+
+    // Crear una lista dinámica para las categorías de pizza encontradas
+    char** categorias = (char**)malloc(iOrders * sizeof(char*));
+    int* categoria_count = (int*)malloc(iOrders * sizeof(int)); // Para contar las ventas por cada categoría
+    int num_categorias = 0; // Contador para las categorías distintas
+
+    // Recorrer todas las órdenes y llenar la lista de categorías
+    for (int i = 0; i < iOrders; i++) {
+        int categoria_encontrada = 0;
+        for (int j = 0; j < num_categorias; j++) {
+            if (strcmp(aOrders[i].pizza_category, categorias[j]) == 0) {
+                categoria_count[j] += aOrders[i].quantity; // Sumar la cantidad de pizzas de esta categoría
+                categoria_encontrada = 1;
+                break;
+            }
+        }
+        
+        // Si la categoría no se ha encontrado, agregarla
+        if (!categoria_encontrada) {
+            categorias[num_categorias] = strdup(aOrders[i].pizza_category);  // Guardar la categoría como nueva
+            categoria_count[num_categorias] = aOrders[i].quantity; // Inicializar su contador con la cantidad de pizzas
+            num_categorias++;
+        }
+    }
+
+    // Calcular el tamaño necesario para la cadena resultante
+    int buffer_size = 256; // Tamaño inicial de buffer para la cadena
+    for (int i = 0; i < num_categorias; i++) {
+        buffer_size += strlen(categorias[i]) + 20; // Ajusta según el tamaño esperado
+    }
+
+    // Reservar memoria para la cadena que almacenará el resultado
+    char* resultado = (char*)malloc(buffer_size * sizeof(char));
+    if (resultado == NULL) {
+        return "Error al asignar memoria.\n"; // En caso de que no se pueda asignar memoria
+    }
+
+    // Crear la cadena con los resultados
+    strcpy(resultado, "Ventas por categoria de pizza (considerando cantidad):\n");
+    for (int i = 0; i < num_categorias; i++) {
+        char linea[50];
+        sprintf(linea, "%s: %d pizzas vendidas\n", categorias[i], categoria_count[i]);
+        strcat(resultado, linea);
+        free(categorias[i]);  // Liberar la memoria de las categorías
+    }
+
+    // Liberar memoria de las listas
+    free(categorias);
+    free(categoria_count);
+
+    return resultado;
 }
