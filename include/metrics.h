@@ -12,10 +12,9 @@ char* dia_mas_dinero(int size, Order *orders, float *total);
 char* dia_menos_dinero(int size, Order *orders, float *total);
 char* dia_mas_pizzas_vendidas(int size, Order *orders, int *total);
 char* dia_menos_pizzas_vendidas(int size, Order *orders, int *total);
-float promedio_pizzas_orden(int size, Order *orders);
-float promedio_pizzas_dia(int size, Order *orders);
-char*ingrediente_mas_vendido(int size, Order *orders);
+char* promedio_pizzas_orden(int size, Order *orders);
+char* promedio_pizzas_dia(int size, Order *orders);
+char* ingrediente_mas_vendido(int size, Order *orders);
+char* categoria_pizzas(int size, Order *orders);
 
-//Declaraciones que no estan (Temporal para poder correr el codigo)
-void categoria_pizzas();
 #endif

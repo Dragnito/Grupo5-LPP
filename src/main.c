@@ -68,19 +68,21 @@ int main(int argc, char *argv[]) {
             free(fecha_menos); // Liberar memoria de la fecha
         }
         else if (strcmp(categorias, "apo") == 0) { // Promedio de pizzas pedidas por orden
-            float promedio = promedio_pizzas_orden(iOrders, aOrders);
-            printf("El promedio de pizzas por orden es: %.2f\n", promedio);
+            char* promedio = promedio_pizzas_orden(iOrders, aOrders);
+            printf("El promedio de pizzas por orden es: %s\n", promedio);
         }
         else if (strcmp(categorias, "apd") == 0) { // Promedio de pizzas vendidas por día
-            float promedio = promedio_pizzas_dia(iOrders, aOrders);
-            printf("El promedio de pizzas vendidas por dia es: %.2f\n", promedio);
+            char* promedio = promedio_pizzas_dia(iOrders, aOrders);
+            printf("El promedio de pizzas vendidas por dia es: %s\n", promedio);
         }        
         else if (strcmp(categorias, "ims") == 0){ // Ingrediente más vendido
             char* mensaje = ingrediente_mas_vendido(iOrders, aOrders);  // Llamar la función con los parámetros adecuados
             printf("%s\n", mensaje);  // Imprimir el mensaje generado por la función
         }
-        else if (strcmp(categorias, "hp") == 0){ // Categoría más vendida de pizzas
-            categoria_pizzas();
+        else if (strcmp(categorias, "hp") == 0) { // Categoría más vendida de pizzas
+            char* resultado = categoria_pizzas(iOrders, aOrders);
+            printf("%s", resultado);
+            free(resultado);  // Liberamos la memoria asignada para el resultado
         }
         else if (strcmp(categorias, "exit") == 0){ // Exit del código sin tener que pasar por el "safe net"
             printf("Proceso finalizado exitosamente.\n");
