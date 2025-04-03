@@ -1,5 +1,6 @@
 {
     "files.associations": {
-        "csv_reader.h": "c" 
+        "csv_reader.h": "c",
+        "stdio.h": "c"
     }
 }

@@ -6,7 +6,7 @@
 
 int main(int argc, char *argv[]) {
     if (argc < 2) {
-        printf("Uso: %s <ventas_pizzas.csv>\n", argv[0]);
+        printf("Uso: %s <ventas.csv>\n", argv[0]);
         return 1;
     }
 

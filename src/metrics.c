@@ -387,7 +387,7 @@ char* ingrediente_mas_vendido(int size, Order *orders) {
         }
     }
 
-    // Crear el resultado final (podrías devolver el ingrediente y su conteo en el formato que prefieras)
+    // Crear el resultado final 
     static char result[150];  // Usamos una variable estática para devolverla
     if (max_ingredient != NULL) {
         snprintf(result, sizeof(result), "Ingrediente mas vendido: %s, Vendido %d veces", max_ingredient, max_count);
