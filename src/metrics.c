@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <float.h>
+#include <ctype.h>
 #include <limits.h> // Added to define INT_MAX
 #include "../include/metrics.h"
 #include "../include/csv_reader.h"
@@ -21,10 +22,6 @@ char* strdup(const char* str) {
 #endif
 
 //Evitar Errores (Temporal para poder correr el codigo)
-
-void ingrediente_mas_vendido() {
-    printf("Función ingrediente_mas_vendido aún no implementada.\n");
-}
 
 void categoria_pizzas() {
     printf("Función categoria_pizzas aún no implementada.\n");
@@ -327,4 +324,76 @@ float promedio_pizzas_dia(int size, Order *orders) {
 
     // Retornar el promedio de pizzas vendidas por día
     return (float)total_pizzas / total_dias;
+}
+
+
+
+// Función para encontrar el ingrediente más vendido
+char* ingrediente_mas_vendido(int size, Order *orders) {
+    // Arreglo para contar las frecuencias de los ingredientes
+    typedef struct {
+        char ingredient[100];
+        int count;
+    } IngredientCount;
+
+    IngredientCount ingredientes[MAX_PIZZAS * 20];  // Puede haber muchos ingredientes, en base a la cantidad de órdenes
+    int ingredient_count = 0;
+
+    // Iterar sobre todas las órdenes
+    for (int i = 0; i < size; i++) {
+        // Obtener los ingredientes de la pizza
+        char *ingredientes_str = orders[i].pizza_ingredients;
+        int quantity = orders[i].quantity;  // Obtener la cantidad de pizzas de la orden
+        
+        // Separar los ingredientes usando strtok
+        char *ingredient = strtok(ingredientes_str, ";");
+
+        while (ingredient != NULL) {
+            // Limpiar espacios alrededor del ingrediente
+            while (isspace(*ingredient)) ingredient++;  // Eliminar espacios al inicio
+            char *end = ingredient + strlen(ingredient) - 1;
+            while (end > ingredient && isspace(*end)) end--;  // Eliminar espacios al final
+            *(end + 1) = '\0';  // Terminar la cadena limpia
+
+            // Buscar si el ingrediente ya ha sido contado
+            int found = 0;
+            for (int j = 0; j < ingredient_count; j++) {
+                if (strcmp(ingredientes[j].ingredient, ingredient) == 0) {
+                    ingredientes[j].count += quantity;  // Multiplicar por la cantidad de pizzas de la orden
+                    found = 1;
+                    break;
+                }
+            }
+
+            // Si no hemos encontrado el ingrediente, lo agregamos
+            if (!found && ingredient_count < MAX_PIZZAS * 20) {
+                strcpy(ingredientes[ingredient_count].ingredient, ingredient);
+                ingredientes[ingredient_count].count = quantity;  // Iniciar con la cantidad de pizzas
+                ingredient_count++;
+            }
+
+            // Obtener el siguiente ingrediente
+            ingredient = strtok(NULL, ";");
+        }
+    }
+
+    // Encontrar el ingrediente más vendido
+    int max_count = 0;
+    char *max_ingredient = NULL;
+    for (int i = 0; i < ingredient_count; i++) {
+        if (ingredientes[i].count > max_count) {
+            max_count = ingredientes[i].count;
+            max_ingredient = ingredientes[i].ingredient;
+        }
+    }
+
+    // Crear el resultado final (podrías devolver el ingrediente y su conteo en el formato que prefieras)
+    static char result[150];  // Usamos una variable estática para devolverla
+    if (max_ingredient != NULL) {
+        snprintf(result, sizeof(result), "Ingrediente mas vendido: %s, Vendido %d veces", max_ingredient, max_count);
+    } else {
+        snprintf(result, sizeof(result), "No se encontraron ingredientes.");
+    }
+
+    return result;
 }

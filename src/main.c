@@ -58,13 +58,13 @@ int main(int argc, char *argv[]) {
         else if (strcmp(categorias, "dmsp") == 0) { // Día donde se vendieron más pizzas
             int total_pizzas_mas;
             char* fecha_mas = dia_mas_pizzas_vendidas(iOrders, aOrders, &total_pizzas_mas);
-            printf("El día con más pizzas vendidas fue: %s con %d pizzas vendidas.\n", fecha_mas, total_pizzas_mas);
+            printf("El dia con mas pizzas vendidas fue: %s con %d pizzas vendidas.\n", fecha_mas, total_pizzas_mas);
             free(fecha_mas); // Liberar memoria de la fecha
         }
         else if (strcmp(categorias, "dlsp") == 0) { // Día donde se vendieron menos pizzas
             int total_pizzas_menos;
             char* fecha_menos = dia_menos_pizzas_vendidas(iOrders, aOrders, &total_pizzas_menos);
-            printf("El día con menos pizzas vendidas fue: %s con %d pizzas vendidas.\n", fecha_menos, total_pizzas_menos);
+            printf("El dia con menos pizzas vendidas fue: %s con %d pizzas vendidas.\n", fecha_menos, total_pizzas_menos);
             free(fecha_menos); // Liberar memoria de la fecha
         }
         else if (strcmp(categorias, "apo") == 0) { // Promedio de pizzas pedidas por orden
@@ -73,10 +73,11 @@ int main(int argc, char *argv[]) {
         }
         else if (strcmp(categorias, "apd") == 0) { // Promedio de pizzas vendidas por día
             float promedio = promedio_pizzas_dia(iOrders, aOrders);
-            printf("El promedio de pizzas vendidas por día es: %.2f\n", promedio);
+            printf("El promedio de pizzas vendidas por dia es: %.2f\n", promedio);
         }        
         else if (strcmp(categorias, "ims") == 0){ // Ingrediente más vendido
-            ingrediente_mas_vendido();
+            char* mensaje = ingrediente_mas_vendido(iOrders, aOrders);  // Llamar la función con los parámetros adecuados
+            printf("%s\n", mensaje);  // Imprimir el mensaje generado por la función
         }
         else if (strcmp(categorias, "hp") == 0){ // Categoría más vendida de pizzas
             categoria_pizzas();
