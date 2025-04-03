@@ -402,7 +402,9 @@ char* ingrediente_mas_vendido(int size, Order *orders) {
 
 
 // Función para mostrar todas las categorías de pizzas y cuántas veces fueron vendidas, considerando la cantidad
-char* categoria_pizzas(int size, Order *orders) {
+char* categoria_pizzas(int size, Order *orders) { // Updated to match the prototype
+    (void)size;   // Mark 'size' as unused
+    (void)orders; // Mark 'orders' as unused
 
     // Crear una lista dinámica para las categorías de pizza encontradas
     char** categorias = (char**)malloc(iOrders * sizeof(char*));
