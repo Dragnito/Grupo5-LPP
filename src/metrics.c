@@ -3,13 +3,13 @@
 #include <string.h>
 #include <float.h>
 #include <ctype.h>
-#include <limits.h> // Added to define INT_MAX
+#include <limits.h> 
 #include "../include/metrics.h"
 #include "../include/csv_reader.h"
 
 #define MAX_PIZZAS 50
 
-// Define strdup explicitly if not available
+// Definición de la función strdup si no está definida
 #ifndef strdup
 char* strdup(const char* str) {
     size_t len = strlen(str) + 1;
@@ -22,7 +22,7 @@ char* strdup(const char* str) {
 #endif
 
 
-
+//estructura de contador de pizzas y cuantas veces fue vendida
 typedef struct {
     char pizza_name[50];
     int total_sold;

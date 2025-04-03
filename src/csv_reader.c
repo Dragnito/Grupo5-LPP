@@ -9,16 +9,15 @@ Order *aOrders = NULL;
 int iOrders = 0;
 char *sCabecera = NULL;
 
-//
 // Rutina para contar cantidad de registros de un archivo de texto
-//
 int CuentaRegistros(const char *filename) {
     int iOrders = 0;
     FILE *file = fopen(filename, "r");
     struct stat stStatusFile;
     stat(filename, &stStatusFile);
     char *sRegistro = malloc(stStatusFile.st_size);
-    
+
+    // Contamos los registros para contar la cantidad de ordenes
     while (fscanf(file, "%[^\n] ", sRegistro) != EOF) {
         iOrders++;
     }
@@ -28,9 +27,7 @@ int CuentaRegistros(const char *filename) {
     return iOrders;
 }
 
-//
 // Rutina para cargar el archivo en el puntero de estructura Order
-//
 void CargaRegistros(const char *filename, int iOrders) {
     aOrders = (Order*)malloc(iOrders * sizeof(Order));
     FILE* file = fopen(filename, "r");
@@ -101,7 +98,7 @@ void CargaRegistros(const char *filename, int iOrders) {
 }
 
 // Función para liberar memoria de las órdenes
-void free_orders(Order *orders) { // Reintroduced 'size' parameter to match the header
+void free_orders(Order *orders) {
     if (orders) {
         free(orders);
     }

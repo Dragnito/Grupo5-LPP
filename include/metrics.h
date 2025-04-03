@@ -3,6 +3,7 @@
 
 #include "csv_reader.h"
 
+// Definicion de la estructura para las metricas
 typedef char* (*MetricFunction)(int *size, Order *orders);
 
 //Hay que declarar las funciones para cada metrica aqui

@@ -1,7 +1,7 @@
 #ifndef READER_CSV_H
 #define READER_CSV_H
 
-// Estructura Order (o como la tengas en tu código)
+// Estructura Order
 typedef struct {
     int pizza_id;
     int order_id;
