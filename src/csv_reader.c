@@ -85,7 +85,7 @@ void CargaRegistros(const char *filename, int iOrders) {
         strcpy(aOrders[iPosRegistro].pizza_category, token);
 
         // pizza_ingredients
-        token = strtok(NULL, ",");
+        token = strtok(NULL, "\""); // Changed delimiter to "
         strcpy(aOrders[iPosRegistro].pizza_ingredients, token);
 
         // pizza_name
